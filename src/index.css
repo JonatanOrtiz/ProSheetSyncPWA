@@ -2,9 +2,12 @@
 html {
   /* HACK iOS: min-height com safe-area-top previne barra branca/cinza inferior */
   min-height: calc(100% + env(safe-area-inset-top));
-  /* Adiciona padding em todas as safe areas */
-  padding: env(safe-area-inset-top) env(safe-area-inset-right)
-           env(safe-area-inset-bottom) env(safe-area-inset-left);
+  /* ⚠️ IMPORTANTE: Padding APENAS no bottom e laterais (não no top!)
+   * Isso permite que o header cubra a status bar, mas remove a barra cinza inferior */
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-top: 0;
   margin: 0;
   /* Remove qualquer scroll */
   overflow: hidden;
