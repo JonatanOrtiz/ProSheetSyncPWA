@@ -76,7 +76,14 @@ export const ServiceDetailScreen: React.FC = () => {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}
+    >
       {/* Header */}
       <Box
         sx={{
@@ -84,7 +91,8 @@ export const ServiceDetailScreen: React.FC = () => {
           color: 'white',
           pb: 3,
           px: 2,
-          pt: 'env(safe-area-inset-top, 0px)'
+          pt: 'env(safe-area-inset-top, 0px)',
+          flexShrink: 0
         }}
       >
         <Container sx={{ pt: 2 }}>
@@ -124,8 +132,16 @@ export const ServiceDetailScreen: React.FC = () => {
         </Container>
       </Box>
 
-      {/* Content */}
-      <Container sx={{ py: 3 }}>
+      {/* Content - Com scroll */}
+      <Box
+        sx={{
+          flex: 1,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          WebkitOverflowScrolling: 'touch'
+        }}
+      >
+        <Container sx={{ py: 3 }}>
         {error && (
           <Alert severity="error" sx={{ mb: 3 }} action={
             <Button color="inherit" size="small" onClick={handleRefresh}>
@@ -154,7 +170,8 @@ export const ServiceDetailScreen: React.FC = () => {
             </Typography>
           </Box>
         )}
-      </Container>
+        </Container>
+      </Box>
     </Box>
   );
 };

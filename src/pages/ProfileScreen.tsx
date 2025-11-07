@@ -97,7 +97,14 @@ export const ProfileScreen: React.FC = () => {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}
+    >
       {/* Header */}
       <Box
         sx={{
@@ -105,7 +112,8 @@ export const ProfileScreen: React.FC = () => {
           color: 'white',
           pb: 6,
           px: 3,
-          pt: 'env(safe-area-inset-top, 0px)'
+          pt: 'env(safe-area-inset-top, 0px)',
+          flexShrink: 0
         }}
       >
         <Container sx={{ pt: 3 }}>
@@ -132,8 +140,16 @@ export const ProfileScreen: React.FC = () => {
         </Container>
       </Box>
 
-      {/* Profile options */}
-      <Container sx={{ py: 3 }}>
+      {/* Profile options - Com scroll */}
+      <Box
+        sx={{
+          flex: 1,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          WebkitOverflowScrolling: 'touch'
+        }}
+      >
+        <Container sx={{ py: 3 }}>
         <Card>
           <CardContent sx={{ p: 0 }}>
             <List sx={{ py: 0 }}>
@@ -218,7 +234,8 @@ export const ProfileScreen: React.FC = () => {
             Desenvolvido para facilitar seu acompanhamento
           </Typography>
         </Box>
-      </Container>
+        </Container>
+      </Box>
 
       {/* Logout confirmation dialog */}
       <Dialog

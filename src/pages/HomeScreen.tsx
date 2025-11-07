@@ -107,7 +107,14 @@ export const HomeScreen: React.FC = () => {
   }
 
   return (
-    <Box>
+    <Box
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}
+    >
       {/* Header */}
       <Box
         sx={{
@@ -115,7 +122,8 @@ export const HomeScreen: React.FC = () => {
           color: 'white',
           pb: 4,
           px: 3,
-          pt: 'env(safe-area-inset-top, 0px)'
+          pt: 'env(safe-area-inset-top, 0px)',
+          flexShrink: 0
         }}
       >
         <Container sx={{ pt: 2 }}>
@@ -141,9 +149,17 @@ export const HomeScreen: React.FC = () => {
         </Container>
       </Box>
 
-      {/* Services grouped by professional */}
-      <Container sx={{ py: 3 }}>
-        {data.professionals.map((professional) => (
+      {/* Services grouped by professional - Com scroll */}
+      <Box
+        sx={{
+          flex: 1,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          WebkitOverflowScrolling: 'touch'
+        }}
+      >
+        <Container sx={{ py: 3 }}>
+          {data.professionals.map((professional) => (
           <Box key={professional.professionalId} sx={{ mb: 4 }}>
             {/* Professional header */}
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
@@ -242,7 +258,8 @@ export const HomeScreen: React.FC = () => {
             Última atualização: {new Date(data.lastUpdated).toLocaleString('pt-BR')}
           </Typography>
         </Box>
-      </Container>
+        </Container>
+      </Box>
     </Box>
   );
 };
