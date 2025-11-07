@@ -168,7 +168,25 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 }
               }
             }
-          }
+          },
+          // ⚠️ ALTURA DA BARRA INFERIOR - CONFIGURAÇÃO 6 (OPCIONAL):
+          // Você pode adicionar customizações globais para o BottomNavigation aqui
+          // Exemplo para alterar a altura padrão:
+          // MuiBottomNavigation: {
+          //   styleOverrides: {
+          //     root: {
+          //       height: 48  // Altura customizada (padrão é 56px)
+          //     }
+          //   }
+          // },
+          // MuiBottomNavigationAction: {
+          //   styleOverrides: {
+          //     root: {
+          //       minHeight: 48,  // Altura mínima dos botões
+          //       padding: '6px 12px'  // Padding interno dos botões
+          //     }
+          //   }
+          // }
         }
       }),
     [mode]
