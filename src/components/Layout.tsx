@@ -3,15 +3,21 @@
  * 📏 CONFIGURAÇÃO DA BARRA INFERIOR
  * ========================================
  *
- * Bottom bar configurada SEM safe-area-inset-bottom
- * A barra fica colada no fundo da tela
+ * Bottom bar COM safe-area-inset-bottom INTERNO
+ * Os ícones ficam acima da área do home indicator do iPhone
  *
  * Configurações principais:
- * - Linha ~58: pb: '56px' - Espaço para o conteúdo não ficar atrás da barra
- * - Linha ~72: bottom: 0 - Barra colada no fundo (sem safe area)
- * - Linha ~87: showLabels - Mostra ícones + texto (altura ~56px)
+ * - Linha ~46: pb: 'calc(56px + env(safe-area-inset-bottom))'
+ *   → Espaço para conteúdo não ficar atrás da barra + safe area
  *
- * Para reduzir altura: mude showLabels para false (linha ~87)
+ * - Linha ~60: bottom: 0 - Barra colada no fundo
+ *
+ * - Linha ~88: paddingBottom: 'env(safe-area-inset-bottom)'
+ *   → Espaço BRANCO interno abaixo dos ícones (área do home indicator)
+ *
+ * - Linha ~77: showLabels - Mostra ícones + texto (altura ~56px)
+ *
+ * TOTAL: 56px (barra) + ~34px (safe area) = ~90px
  * ========================================
  */
 
@@ -42,9 +48,8 @@ export const Layout: React.FC = () => {
   return (
     <Box
       sx={{
-        // Padding bottom apenas para a altura da barra
-        // O safe-area-inset-bottom agora é tratado pelo HTML global
-        pb: '56px',
+        // Padding bottom = altura da barra (56px) + safe area do iPhone
+        pb: 'calc(56px + env(safe-area-inset-bottom, 0px))',
         height: '100%',
         overflow: 'hidden',
         position: 'relative'
@@ -56,7 +61,7 @@ export const Layout: React.FC = () => {
       {/* Bottom navigation */}
       <Paper
         sx={{
-          // Barra colada no fundo da tela (SEM safe area)
+          // Barra colada no fundo da tela
           position: 'fixed',
           bottom: 0,
           left: 0,
@@ -67,12 +72,8 @@ export const Layout: React.FC = () => {
           userSelect: 'none',
           WebkitUserSelect: 'none',
           WebkitTouchCallout: 'none',
-          // ⚠️ FIX DO ESPAÇO ABAIXO: Remove qualquer padding/margin do Paper
           margin: 0,
-          padding: 0,
-          // Altura exata do BottomNavigation para não criar espaço extra
-          height: '56px',
-          minHeight: '56px'
+          padding: 0
         }}
         elevation={3}
       >
@@ -86,8 +87,11 @@ export const Layout: React.FC = () => {
             backgroundColor: 'background.paper',
             margin: 0,
             padding: 0,
-            height: '56px',
-            minHeight: '56px'
+            // ⚠️ ALTURA TOTAL: 56px (ícones) + safe-area-inset-bottom (~34px)
+            height: 'calc(56px + env(safe-area-inset-bottom, 0px))',
+            // ⚠️ AJUSTE DE CENTRALIZAÇÃO: +5px em cima, -5px embaixo
+            paddingTop: '5px',
+            paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) - 15px)'
           }}
         >
           <BottomNavigationAction label="Início" icon={<HomeIcon />} />
